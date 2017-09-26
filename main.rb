@@ -20,15 +20,23 @@ enemies = []
   enemies << Enemy.new(rand(800), rand(600), enemy_img)
 end
 
+
 Window.loop do
   break if Input.keyPush?(K_ESCAPE)
-
   Sprite.update(enemies)
   Sprite.draw(enemies)
-
+  enemies.each{ |enemie|
+    if enemie.vanished
+    enemies  <<  Enemy.new(rand(800), rand(600), enemy_img)
+    enemie.vanished = false
+    end
+}
+  
   player.update
   player.draw
 
   # 当たり判定
-  Sprite.check(player, enemies)
+  if Sprite.check(player, enemies)
+    enemies  <<  Enemy.new(rand(800), rand(600), enemy_img)
+  end
 end

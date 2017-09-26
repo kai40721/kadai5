@@ -1,10 +1,18 @@
 # coding: utf-8
 
 class Enemy < Sprite
+attr_accessor :vanished
+
+  def initialize(x,y,img)
+    super
+    @vanished = false
+  end
+
   def update
-    self.y += 1
+    self.y += 0.5
     if self.y >= Window.height - self.image.height
       self.vanish
+    @vanished = true
     end
   end
 
